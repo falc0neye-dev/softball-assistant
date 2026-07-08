@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs><clipPath id="s"><rect width="390" height="844" rx="28"/></clipPath></defs>
+  <g clip-path="url(#s)">
+    <rect width="390" height="844" fill="#F6F4ED"/>
+
+    <!-- Sticky header -->
+    <rect width="390" height="112" fill="#1F5632"/>
+    <text x="20" y="26" fill="#DCE8DC" font-size="13" font-weight="600">9:41</text>
+    <rect x="330" y="16" width="18" height="10" rx="2" fill="none" stroke="#DCE8DC" stroke-width="1.5"/>
+    <rect x="332" y="18" width="11" height="6" fill="#DCE8DC"/>
+    <text x="20" y="54" fill="#9FC2A6" font-size="10" letter-spacing="2.5" font-weight="700">SCORECARD · VS. RIDGEWOOD ROCKETS</text>
+    <text x="20" y="90" fill="#FFFFFF" font-size="24" font-weight="900">SLUGGERS 7 — 4 ROCKETS</text>
+    <!-- inning + outs -->
+    <rect x="296" y="62" width="78" height="24" rx="12" fill="#174226"/>
+    <text x="335" y="78" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="800">TOP 4TH</text>
+    <circle cx="316" cy="98" r="5" fill="#D69A2D"/>
+    <circle cx="334" cy="98" r="5" fill="none" stroke="#9FC2A6" stroke-width="1.5"/>
+    <circle cx="352" cy="98" r="5" fill="none" stroke="#9FC2A6" stroke-width="1.5"/>
+    <text x="296" y="102" text-anchor="end" fill="#9FC2A6" font-size="10" font-weight="700">OUTS</text>
+
+    <!-- Line score strip -->
+    <rect x="16" y="124" width="358" height="66" rx="12" fill="#FFFFFF" stroke="#E6E2D4"/>
+    <g font-family="Menlo, monospace" font-size="11">
+      <text x="30" y="144" fill="#B4AFA0" font-weight="700">INN</text>
+      <text x="106" y="144" fill="#B4AFA0">1</text><text x="140" y="144" fill="#B4AFA0">2</text>
+      <text x="174" y="144" fill="#B4AFA0">3</text><text x="208" y="144" fill="#B4AFA0">4</text>
+      <text x="242" y="144" fill="#B4AFA0">5</text><text x="276" y="144" fill="#B4AFA0">6</text>
+      <text x="310" y="144" fill="#B4AFA0">7</text><text x="348" y="144" fill="#B4AFA0" font-weight="700">R</text>
+      <text x="30" y="162" fill="#1F5632" font-weight="700">US</text>
+      <text x="106" y="162" fill="#24291F">2</text><text x="140" y="162" fill="#24291F">0</text>
+      <text x="174" y="162" fill="#24291F">2</text><text x="208" y="162" fill="#24291F">3</text>
+      <text x="242" y="162" fill="#D8D4C4">·</text><text x="276" y="162" fill="#D8D4C4">·</text>
+      <text x="310" y="162" fill="#D8D4C4">·</text><text x="348" y="162" fill="#1F5632" font-weight="700">7</text>
+      <text x="30" y="180" fill="#A93B26" font-weight="700">THEM</text>
+      <text x="106" y="180" fill="#24291F">1</text><text x="140" y="180" fill="#24291F">0</text>
+      <text x="174" y="180" fill="#24291F">3</text><text x="208" y="180" fill="#24291F">0</text>
+      <text x="242" y="180" fill="#D8D4C4">·</text><text x="276" y="180" fill="#D8D4C4">·</text>
+      <text x="310" y="180" fill="#D8D4C4">·</text><text x="348" y="180" fill="#A93B26" font-weight="700">4</text>
+    </g>
+
+    <!-- ===== Plate appearance rows ===== -->
+    <!-- Row 14: Mike Torres 1B scored -->
+    <g>
+      <rect x="16" y="202" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="231" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">14</text>
+      <text x="62" y="231" fill="#24291F" font-size="14" font-weight="700">Mike Torres</text>
+      <rect x="262" y="213" width="42" height="26" rx="13" fill="#EAF1EA"/>
+      <text x="283" y="230" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">1B</text>
+      <rect x="332" y="218" width="13" height="13" fill="#1F5632" transform="rotate(45 338.5 224.5)"/>
+    </g>
+    <!-- Row 15: Robert Chen K out -->
+    <g>
+      <rect x="16" y="256" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="285" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">15</text>
+      <text x="62" y="285" fill="#24291F" font-size="14" font-weight="700">Robert Chen</text>
+      <rect x="262" y="267" width="42" height="26" rx="13" fill="#F0EDE2"/>
+      <text x="283" y="284" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="800">K</text>
+      <line x1="333" y1="273" x2="344" y2="284" stroke="#A93B26" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="344" y1="273" x2="333" y2="284" stroke="#A93B26" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <!-- Row 16: Ely Rosen BB LOB -->
+    <g>
+      <rect x="16" y="310" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="339" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">16</text>
+      <text x="62" y="339" fill="#24291F" font-size="14" font-weight="700">Ely Rosen</text>
+      <circle cx="150" cy="334" r="8" fill="#D69A2D" opacity="0.25"/>
+      <text x="150" y="338" text-anchor="middle" fill="#9A6D14" font-size="9" font-weight="800">F</text>
+      <rect x="262" y="321" width="42" height="26" rx="13" fill="#EAF1EA"/>
+      <text x="283" y="338" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">BB</text>
+      <rect x="332" y="326" width="13" height="13" fill="none" stroke="#B4AFA0" stroke-width="1.5" transform="rotate(45 338.5 332.5)"/>
+      <text x="338" y="352" text-anchor="middle" fill="#B4AFA0" font-size="8" font-weight="700">LOB</text>
+    </g>
+
+    <!-- Inning separator: chalk line on clay -->
+    <g>
+      <rect x="0" y="366" width="390" height="34" fill="#B85C38"/>
+      <line x1="16" y1="383" x2="120" y2="383" stroke="#F6F4ED" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="195" y="388" text-anchor="middle" fill="#FFFFFF" font-size="11" letter-spacing="1.5" font-weight="800">END OF 3RD · 2 RUNS · 7—4</text>
+      <line x1="270" y1="383" x2="374" y2="383" stroke="#F6F4ED" stroke-width="2" stroke-dasharray="6 5"/>
+    </g>
+
+    <!-- Row 17: Keith 2B on base -->
+    <g>
+      <rect x="16" y="410" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="439" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">17</text>
+      <text x="62" y="439" fill="#24291F" font-size="14" font-weight="700">Keith Falcon</text>
+      <rect x="262" y="421" width="42" height="26" rx="13" fill="#EAF1EA"/>
+      <text x="283" y="438" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">2B</text>
+      <g transform="rotate(45 338.5 432.5)">
+        <rect x="332" y="426" width="13" height="13" fill="none" stroke="#1F5632" stroke-width="1.5"/>
+        <path d="M332 426 h13 v13 z" fill="#1F5632"/>
+      </g>
+    </g>
+    <!-- Row 18: Erin FC out -->
+    <g>
+      <rect x="16" y="464" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="493" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">18</text>
+      <text x="62" y="493" fill="#24291F" font-size="14" font-weight="700">Erin Walsh</text>
+      <circle cx="152" cy="488" r="8" fill="#D69A2D" opacity="0.25"/>
+      <text x="152" y="492" text-anchor="middle" fill="#9A6D14" font-size="9" font-weight="800">F</text>
+      <rect x="262" y="475" width="42" height="26" rx="13" fill="#F0EDE2"/>
+      <text x="283" y="492" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="800">FC</text>
+      <line x1="333" y1="481" x2="344" y2="492" stroke="#A93B26" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="344" y1="481" x2="333" y2="492" stroke="#A93B26" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <!-- Row 19: Jonathan 1B on base -->
+    <g>
+      <rect x="16" y="518" width="358" height="48" rx="10" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <text x="34" y="547" fill="#B4AFA0" font-family="Menlo, monospace" font-size="12">19</text>
+      <text x="62" y="547" fill="#24291F" font-size="14" font-weight="700">Jonathan Falcon</text>
+      <rect x="262" y="529" width="42" height="26" rx="13" fill="#EAF1EA"/>
+      <text x="283" y="546" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">1B</text>
+      <g transform="rotate(45 338.5 540.5)">
+        <rect x="332" y="534" width="13" height="13" fill="none" stroke="#1F5632" stroke-width="1.5"/>
+        <path d="M332 534 h13 v13 z" fill="#1F5632"/>
+      </g>
+    </g>
+
+    <!-- Now batting card -->
+    <g>
+      <rect x="16" y="580" width="358" height="94" rx="14" fill="#FBEEE6" stroke="#B85C38" stroke-width="1.5"/>
+      <text x="34" y="604" fill="#B85C38" font-size="10" letter-spacing="2" font-weight="800">NOW BATTING · #20</text>
+      <text x="34" y="628" fill="#24291F" font-size="17" font-weight="800">Steven Marks</text>
+      <!-- outcome chips -->
+      <g font-size="11" font-weight="800">
+        <rect x="30" y="640" width="42" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="51" y="657" text-anchor="middle" fill="#24291F">1B</text>
+        <rect x="78" y="640" width="42" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="99" y="657" text-anchor="middle" fill="#24291F">2B</text>
+        <rect x="126" y="640" width="42" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="147" y="657" text-anchor="middle" fill="#24291F">HR</text>
+        <rect x="174" y="640" width="42" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="195" y="657" text-anchor="middle" fill="#24291F">BB</text>
+        <rect x="222" y="640" width="42" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="243" y="657" text-anchor="middle" fill="#24291F">FC</text>
+        <rect x="270" y="640" width="46" height="26" rx="13" fill="#FFFFFF" stroke="#DCC7BA"/><text x="293" y="657" text-anchor="middle" fill="#A93B26">OUT</text>
+        <text x="336" y="657" fill="#B85C38" font-size="14">···</text>
+      </g>
+    </g>
+
+    <!-- Bottom actions -->
+    <rect x="16" y="694" width="170" height="46" rx="23" fill="none" stroke="#6E6A5C" stroke-width="1.5"/>
+    <text x="101" y="722" text-anchor="middle" fill="#6E6A5C" font-size="14" font-weight="700">↩  Undo</text>
+    <rect x="204" y="694" width="170" height="46" rx="23" fill="none" stroke="#A93B26" stroke-width="1.5"/>
+    <text x="289" y="722" text-anchor="middle" fill="#A93B26" font-size="14" font-weight="700">+1 Out (baserunner)</text>
+
+    <text x="195" y="772" text-anchor="middle" fill="#B4AFA0" font-size="11">Tap any row to edit · Long-press between rows to insert</text>
+
+    <!-- Diamond legend -->
+    <g font-size="10" fill="#8A8676">
+      <rect x="60" y="796" width="10" height="10" fill="#1F5632" transform="rotate(45 65 801)"/>
+      <text x="76" y="805">Scored</text>
+      <g transform="rotate(45 145 801)"><rect x="140" y="796" width="10" height="10" fill="none" stroke="#1F5632"/><path d="M140 796 h10 v10 z" fill="#1F5632"/></g>
+      <text x="156" y="805">On base</text>
+      <line x1="222" y1="797" x2="230" y2="805" stroke="#A93B26" stroke-width="2"/>
+      <line x1="230" y1="797" x2="222" y2="805" stroke="#A93B26" stroke-width="2"/>
+      <text x="238" y="805">Out</text>
+      <rect x="280" y="796" width="10" height="10" fill="none" stroke="#B4AFA0" transform="rotate(45 285 801)"/>
+      <text x="298" y="805">Left on base</text>
+    </g>
+  </g>
+</svg>
