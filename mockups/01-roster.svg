@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <clipPath id="screen"><rect width="390" height="844" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#screen)">
+    <!-- background -->
+    <rect width="390" height="844" fill="#F6F4ED"/>
+
+    <!-- App bar -->
+    <rect width="390" height="128" fill="#1F5632"/>
+    <text x="20" y="30" fill="#DCE8DC" font-size="13" font-weight="600">9:41</text>
+    <rect x="330" y="20" width="18" height="10" rx="2" fill="none" stroke="#DCE8DC" stroke-width="1.5"/>
+    <rect x="332" y="22" width="11" height="6" fill="#DCE8DC"/>
+    <path d="M310 29 a8 8 0 0 1 14 0" fill="none" stroke="#DCE8DC" stroke-width="1.5"/>
+    <text x="20" y="62" fill="#9FC2A6" font-size="10" letter-spacing="2.5" font-weight="700">KEITH'S SOFTBALL ASSISTANT</text>
+    <text x="20" y="92" fill="#FFFFFF" font-size="24" font-weight="800">Forest Hills Sluggers</text>
+    <text x="20" y="113" fill="#BCD6C0" font-size="12">12 active players · 5 F · 7 M</text>
+
+    <!-- sort / search row -->
+    <text x="20" y="160" fill="#6E6A5C" font-size="13" font-weight="600">Sort: Last name ▾</text>
+    <circle cx="352" cy="155" r="9" fill="none" stroke="#6E6A5C" stroke-width="2"/>
+    <line x1="358" y1="162" x2="366" y2="170" stroke="#6E6A5C" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Player rows -->
+    <!-- Row template: card 20..370, h=58, gap 10 -->
+    <!-- Row 1 -->
+    <g>
+      <rect x="16" y="178" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="207" r="17" fill="#EAF1EA"/><text x="46" y="212" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">KF</text>
+      <text x="74" y="203" fill="#24291F" font-size="15" font-weight="700">Keith Falcon</text>
+      <text x="74" y="221" fill="#8A8676" font-size="12">Shortstop</text>
+      <rect x="276" y="193" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="210" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">SS</text>
+      <circle cx="342" cy="206" r="13" fill="#3E5C76"/><text x="342" y="211" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">M</text>
+    </g>
+    <!-- Row 2 -->
+    <g>
+      <rect x="16" y="246" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="275" r="17" fill="#EAF1EA"/><text x="46" y="280" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">JF</text>
+      <text x="74" y="271" fill="#24291F" font-size="15" font-weight="700">Jonathan Falcon</text>
+      <text x="74" y="289" fill="#8A8676" font-size="12">First base</text>
+      <rect x="276" y="261" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="278" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">1B</text>
+      <circle cx="342" cy="274" r="13" fill="#3E5C76"/><text x="342" y="279" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">M</text>
+    </g>
+    <!-- Row 3 -->
+    <g>
+      <rect x="16" y="314" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="343" r="17" fill="#FBF2DF"/><text x="46" y="348" text-anchor="middle" fill="#9A6D14" font-size="12" font-weight="800">ER</text>
+      <text x="74" y="339" fill="#24291F" font-size="15" font-weight="700">Ely Rosen</text>
+      <text x="74" y="357" fill="#8A8676" font-size="12">Second base</text>
+      <rect x="276" y="329" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="346" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">2B</text>
+      <circle cx="342" cy="342" r="13" fill="#D69A2D"/><text x="342" y="347" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">F</text>
+    </g>
+    <!-- Row 4 -->
+    <g>
+      <rect x="16" y="382" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="411" r="17" fill="#FBF2DF"/><text x="46" y="416" text-anchor="middle" fill="#9A6D14" font-size="12" font-weight="800">EW</text>
+      <text x="74" y="407" fill="#24291F" font-size="15" font-weight="700">Erin Walsh</text>
+      <text x="74" y="425" fill="#8A8676" font-size="12">Catcher</text>
+      <rect x="276" y="397" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="414" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">C</text>
+      <circle cx="342" cy="410" r="13" fill="#D69A2D"/><text x="342" y="415" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">F</text>
+    </g>
+    <!-- Row 5 -->
+    <g>
+      <rect x="16" y="450" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="479" r="17" fill="#EAF1EA"/><text x="46" y="484" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">SM</text>
+      <text x="74" y="475" fill="#24291F" font-size="15" font-weight="700">Steven Marks</text>
+      <text x="74" y="493" fill="#8A8676" font-size="12">Left field</text>
+      <rect x="276" y="465" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="482" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">LF</text>
+      <circle cx="342" cy="478" r="13" fill="#3E5C76"/><text x="342" y="483" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">M</text>
+    </g>
+    <!-- Row 6 -->
+    <g>
+      <rect x="16" y="518" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="547" r="17" fill="#EAF1EA"/><text x="46" y="552" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">MT</text>
+      <text x="74" y="543" fill="#24291F" font-size="15" font-weight="700">Mike Torres</text>
+      <text x="74" y="561" fill="#8A8676" font-size="12">Pitcher</text>
+      <rect x="276" y="533" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="550" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">P</text>
+      <circle cx="342" cy="546" r="13" fill="#3E5C76"/><text x="342" y="551" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">M</text>
+    </g>
+    <!-- Row 7 -->
+    <g>
+      <rect x="16" y="586" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="615" r="17" fill="#FBF2DF"/><text x="46" y="620" text-anchor="middle" fill="#9A6D14" font-size="12" font-weight="800">DP</text>
+      <text x="74" y="611" fill="#24291F" font-size="15" font-weight="700">Dana Price</text>
+      <text x="74" y="629" fill="#8A8676" font-size="12">Third base</text>
+      <rect x="276" y="601" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="618" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">3B</text>
+      <circle cx="342" cy="614" r="13" fill="#D69A2D"/><text x="342" y="619" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">F</text>
+    </g>
+    <!-- Row 8 (partially scrolled) -->
+    <g>
+      <rect x="16" y="654" width="358" height="58" rx="14" fill="#FFFFFF" stroke="#E6E2D4"/>
+      <circle cx="46" cy="683" r="17" fill="#EAF1EA"/><text x="46" y="688" text-anchor="middle" fill="#1F5632" font-size="12" font-weight="800">RC</text>
+      <text x="74" y="679" fill="#24291F" font-size="15" font-weight="700">Robert Chen</text>
+      <text x="74" y="697" fill="#8A8676" font-size="12">Right field</text>
+      <rect x="276" y="669" width="38" height="26" rx="13" fill="none" stroke="#D8D4C4"/><text x="295" y="686" text-anchor="middle" fill="#6E6A5C" font-size="12" font-weight="700">RF</text>
+      <circle cx="342" cy="682" r="13" fill="#3E5C76"/><text x="342" y="687" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">M</text>
+    </g>
+
+    <!-- Extended FAB -->
+    <g>
+      <rect x="238" y="726" width="136" height="52" rx="26" fill="#B85C38"/>
+      <text x="262" y="758" fill="#FFFFFF" font-size="20" font-weight="800">+</text>
+      <text x="282" y="757" fill="#FFFFFF" font-size="14" font-weight="700">Add player</text>
+    </g>
+
+    <!-- Bottom nav -->
+    <rect x="0" y="782" width="390" height="62" fill="#FFFFFF" stroke="#E6E2D4"/>
+    <rect x="60" y="792" width="76" height="30" rx="15" fill="#EAF1EA"/>
+    <text x="98" y="812" text-anchor="middle" fill="#1F5632" font-size="13" font-weight="800">Roster</text>
+    <text x="292" y="812" text-anchor="middle" fill="#8A8676" font-size="13" font-weight="600">Schedule</text>
+  </g>
+</svg>
