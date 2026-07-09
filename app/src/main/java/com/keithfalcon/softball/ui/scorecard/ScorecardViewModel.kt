@@ -36,6 +36,8 @@ data class ScorecardUiState(
     val oppByInning: Map<Int, Int> = emptyMap(),
     val oppTotal: Int = 0,
     val nextSlot: LineupEngine.Slot? = null,
+    /** The five batters after [nextSlot], for the scrollable "up next" list. */
+    val upcoming: List<LineupEngine.Slot> = emptyList(),
     val hasLineup: Boolean = false,
     val canUndo: Boolean = false,
     val canRedo: Boolean = false,
@@ -100,10 +102,12 @@ class ScorecardViewModel(app: SoftballApp, private val gameId: Long) : ViewModel
     ) { (game, team, players), (pas, opp), lineup, (undoSize, redoSize) ->
         val derived = ScorecardEngine.derive(pas)
         val oppByInning = opp.associate { it.inning to it.runs }
-        val nextSlot = lineup.config?.let {
-            if (game?.status == GameStatus.FINAL) null
-            else LineupEngine.nextSlot(it, battingHistory(pas))
-        }
+        // One simulated preview covers both the now-batting card (first slot) and the
+        // "up next" list (the five after it).
+        val lookahead = lineup.config?.let {
+            if (game?.status == GameStatus.FINAL) emptyList()
+            else LineupEngine.preview(it, battingHistory(pas), UPCOMING_COUNT + 1)
+        } ?: emptyList()
         ScorecardUiState(
             game = game,
             teamName = team?.name ?: "",
@@ -115,7 +119,8 @@ class ScorecardViewModel(app: SoftballApp, private val gameId: Long) : ViewModel
             ourTotal = derived.totalRuns,
             oppByInning = oppByInning,
             oppTotal = oppByInning.values.sum(),
-            nextSlot = nextSlot,
+            nextSlot = lookahead.firstOrNull(),
+            upcoming = lookahead.drop(1),
             hasLineup = lineup.hasLineup,
             canUndo = undoSize > 0,
             canRedo = redoSize > 0,
@@ -343,6 +348,7 @@ class ScorecardViewModel(app: SoftballApp, private val gameId: Long) : ViewModel
 
     companion object {
         private const val UNDO_LIMIT = 20
+        private const val UPCOMING_COUNT = 5
 
         fun defaultRunnerResult(outcome: Outcome): RunnerResult = when {
             outcome == Outcome.HOME_RUN -> RunnerResult.SCORED

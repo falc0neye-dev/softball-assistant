@@ -170,6 +170,15 @@ fun ScorecardTab(gameId: Long) {
                     )
                 }
             }
+            if (!isFinal && ui.upcoming.isNotEmpty()) {
+                item(key = "up-next") {
+                    UpNextSection(
+                        upcoming = ui.upcoming,
+                        playersById = ui.playersById,
+                        startSequence = ui.rows.size + 2, // now batting is rows+1
+                    )
+                }
+            }
         }
 
         if (!isFinal) {
@@ -362,6 +371,57 @@ private fun PaRow(
     DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
         DropdownMenuItem(text = { Text("Insert row after this one") }, onClick = { menuOpen = false; onInsertAfter() })
         DropdownMenuItem(text = { Text("Edit") }, onClick = { menuOpen = false; onClick() })
+    }
+}
+
+/** The next few batters after the current one — visible by scrolling past the last row. */
+@Composable
+private fun UpNextSection(
+    upcoming: List<LineupEngine.Slot>,
+    playersById: Map<Long, Player>,
+    startSequence: Int,
+) {
+    Column(Modifier.fillMaxWidth().padding(top = 6.dp)) {
+        Text(
+            "UP NEXT",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp,
+            modifier = Modifier.padding(start = 4.dp, bottom = 6.dp),
+        )
+        upcoming.forEachIndexed { i, slot ->
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    "%2d".format(startSequence + i),
+                    style = MonoDigits,
+                    color = TextFaint,
+                    modifier = Modifier.width(30.dp),
+                )
+                when (slot) {
+                    is LineupEngine.Slot.Batter -> {
+                        val player = playersById[slot.playerId]
+                        Text(
+                            player?.fullName ?: "Unknown player",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        if (player?.sex == Sex.FEMALE) {
+                            Spacer(Modifier.width(6.dp))
+                            SexDot(Sex.FEMALE)
+                        }
+                    }
+                    LineupEngine.Slot.AutoOut -> Text(
+                        "Automatic out (no female)",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            }
+        }
     }
 }
 
