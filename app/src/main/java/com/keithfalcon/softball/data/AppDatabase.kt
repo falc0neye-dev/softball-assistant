@@ -27,6 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun lineupDao(): LineupDao
     abstract fun plateAppearanceDao(): PlateAppearanceDao
     abstract fun opponentInningDao(): OpponentInningDao
+    abstract fun backupDao(): BackupDao
 
     companion object {
         fun build(context: Context): AppDatabase =

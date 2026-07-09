@@ -451,6 +451,11 @@ fun LineupTab(gameId: Long, onStartGame: () -> Unit) {
             TextButton(onClick = vm::regenerateFromAvailability) {
                 Text("⟳ Rebuild from availability", fontWeight = FontWeight.Bold)
             }
+            val context = androidx.compose.ui.platform.LocalContext.current
+            TextButton(
+                onClick = { shareLineup(context, ui) },
+                enabled = ui.preview.isNotEmpty(),
+            ) { Text("Share", fontWeight = FontWeight.Bold) }
         }
 
         Spacer(Modifier.height(18.dp))
@@ -482,6 +487,29 @@ fun LineupTab(gameId: Long, onStartGame: () -> Unit) {
         }
         Spacer(Modifier.height(24.dp))
     }
+}
+
+/** Spec §7.2 — formatted batting order for the team group chat, via the system share sheet. */
+private fun shareLineup(context: android.content.Context, ui: LineupUiState) {
+    val game = ui.game
+    val header = buildString {
+        append("Lineup")
+        if (game != null) {
+            append(" vs. ${game.opponent}")
+            append(" — ")
+            append(java.text.SimpleDateFormat("EEE MMM d, h:mm a", java.util.Locale.US).format(java.util.Date(game.dateTime)))
+        }
+    }
+    val body = ui.preview.mapIndexed { i, slot ->
+        "${i + 1}. ${slot.label}${if (slot.isFemaleSlot && !slot.isAutoOut) " (F)" else ""}"
+    }.joinToString("\n")
+    val footer = if (ui.lineup?.type == LineupType.DYNAMIC)
+        "\n(first ${ui.preview.size} — order keeps cycling)" else ""
+    val intent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(android.content.Intent.EXTRA_TEXT, "$header\n$body$footer")
+    }
+    context.startActivity(android.content.Intent.createChooser(intent, "Share lineup"))
 }
 
 @Composable

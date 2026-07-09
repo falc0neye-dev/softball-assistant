@@ -1,6 +1,7 @@
 package com.keithfalcon.softball.data
 
 import androidx.room.Entity
+import kotlinx.serialization.Serializable
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -44,6 +45,7 @@ enum class Outcome(val label: String, val reachedBase: Boolean) {
 
 enum class RunnerResult { NONE, ON_BASE, SCORED, OUT, LEFT_ON_BASE }
 
+@Serializable
 @Entity(tableName = "teams")
 data class Team(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -51,6 +53,7 @@ data class Team(
     val createdAt: Long = System.currentTimeMillis(),
 )
 
+@Serializable
 @Entity(
     tableName = "players",
     foreignKeys = [ForeignKey(
@@ -73,6 +76,7 @@ data class Player(
     val fullName: String get() = "$firstName $lastName".trim()
 }
 
+@Serializable
 @Entity(
     tableName = "games",
     foreignKeys = [ForeignKey(
@@ -96,6 +100,7 @@ data class Game(
     val theirScore: Int = 0,
 )
 
+@Serializable
 @Entity(
     tableName = "availability",
     primaryKeys = ["gameId", "playerId"],
@@ -122,6 +127,7 @@ data class Availability(
 )
 
 /** One lineup per game; also carries the dynamic-generation settings. */
+@Serializable
 @Entity(
     tableName = "lineups",
     foreignKeys = [ForeignKey(
@@ -139,6 +145,7 @@ data class Lineup(
     val autoOutOnEmptyFemaleSlot: Boolean = false,
 )
 
+@Serializable
 @Entity(
     tableName = "lineup_entries",
     primaryKeys = ["gameId", "queue", "orderInQueue"],
@@ -171,6 +178,7 @@ data class LineupEntry(
  * ordered sequence (spec §12.2), never edited directly. `playerId` is null for AUTO_OUT
  * and MANUAL_OUT rows.
  */
+@Serializable
 @Entity(
     tableName = "plate_appearances",
     foreignKeys = [
@@ -201,6 +209,7 @@ data class PlateAppearance(
 )
 
 /** Opponent runs per inning — simple +/- entry, we don't score their at-bats (spec §6.6). */
+@Serializable
 @Entity(
     tableName = "opponent_innings",
     primaryKeys = ["gameId", "inning"],

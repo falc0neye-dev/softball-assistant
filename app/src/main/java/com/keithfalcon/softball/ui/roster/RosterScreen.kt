@@ -69,6 +69,7 @@ fun RosterScreen() {
     var addingPlayer by remember { mutableStateOf(false) }
     var editingTeamName by remember { mutableStateOf(false) }
     var sortMenuOpen by remember { mutableStateOf(false) }
+    var settingsOpen by remember { mutableStateOf(false) }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -86,11 +87,19 @@ fun RosterScreen() {
             // Green app header per mockup 01
             Surface(color = FieldGreen) {
                 Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 16.dp)) {
-                    Text(
-                        "KEITH'S SOFTBALL ASSISTANT",
-                        color = GreenOnDark, fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold, letterSpacing = 2.5.sp,
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            "KEITH'S SOFTBALL ASSISTANT",
+                            color = GreenOnDark, fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold, letterSpacing = 2.5.sp,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Text(
+                            "⚙",
+                            color = GreenOnDark, fontSize = 18.sp,
+                            modifier = Modifier.clickable { settingsOpen = true },
+                        )
+                    }
                     Spacer(Modifier.height(6.dp))
                     Text(
                         ui.team?.name ?: "No team yet",
@@ -184,6 +193,9 @@ fun RosterScreen() {
                 editingPlayer = null
             },
         )
+    }
+    if (settingsOpen) {
+        com.keithfalcon.softball.ui.settings.SettingsSheet(onDismiss = { settingsOpen = false })
     }
     if (editingTeamName) {
         TeamNameDialog(

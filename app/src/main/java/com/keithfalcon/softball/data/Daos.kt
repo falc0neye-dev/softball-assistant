@@ -172,6 +172,9 @@ interface PlateAppearanceDao {
 
     @Query("SELECT * FROM plate_appearances")
     suspend fun all(): List<PlateAppearance>
+
+    @Query("SELECT * FROM plate_appearances")
+    fun observeForAll(): Flow<List<PlateAppearance>>
 }
 
 @Dao

@@ -118,8 +118,16 @@ fun ScorecardTab(gameId: Long) {
         }
 
         val listState = rememberLazyListState()
+        val haptics = androidx.compose.ui.platform.LocalHapticFeedback.current
         LaunchedEffect(ui.rows.size) {
-            if (ui.rows.isNotEmpty()) listState.animateScrollToItem(ui.rows.size - 1)
+            if (ui.rows.isNotEmpty()) {
+                // Satisfying and glanceable (spec §7.11): buzz on out #3 and on runs scored.
+                val last = ui.rows.last()
+                if (last.endsInning || last.pa.runnerResult == RunnerResult.SCORED) {
+                    haptics.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
+                }
+                listState.animateScrollToItem(ui.rows.size - 1)
+            }
         }
 
         LazyColumn(
