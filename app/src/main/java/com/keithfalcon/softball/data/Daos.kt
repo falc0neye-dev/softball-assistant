@@ -38,6 +38,9 @@ interface PlayerDao {
     @Query("SELECT * FROM players WHERE id = :id")
     suspend fun byId(id: Long): Player?
 
+    @Query("SELECT * FROM players")
+    fun observeEveryone(): Flow<List<Player>>
+
     @Insert
     suspend fun insert(player: Player): Long
 
@@ -175,6 +178,9 @@ interface PlateAppearanceDao {
 interface OpponentInningDao {
     @Query("SELECT * FROM opponent_innings WHERE gameId = :gameId ORDER BY inning")
     fun observeForGame(gameId: Long): Flow<List<OpponentInning>>
+
+    @Query("SELECT * FROM opponent_innings WHERE gameId = :gameId ORDER BY inning")
+    suspend fun forGame(gameId: Long): List<OpponentInning>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(inning: OpponentInning)
