@@ -172,6 +172,7 @@ fun ScorecardTab(gameId: Long) {
                 onOutcome = vm::recordOutcome,
                 onAutoOut = vm::recordAutoOut,
                 onMore = { showFullOutcomes = true },
+                onRemoveFromRotation = vm::removeFromRotation,
             )
             Row(
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
@@ -395,6 +396,7 @@ private fun OutcomeBadge(outcome: Outcome) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun NowBattingCard(
     slot: LineupEngine.Slot?,
@@ -403,7 +405,9 @@ private fun NowBattingCard(
     onOutcome: (Outcome) -> Unit,
     onAutoOut: () -> Unit,
     onMore: () -> Unit,
+    onRemoveFromRotation: (Long) -> Unit,
 ) {
+    var rotationMenuOpen by remember { mutableStateOf(false) }
     Surface(
         shape = RoundedCornerShape(14.dp),
         color = MaterialTheme.colorScheme.secondaryContainer,
@@ -419,7 +423,13 @@ private fun NowBattingCard(
             Spacer(Modifier.height(4.dp))
             when (slot) {
                 is LineupEngine.Slot.Batter -> {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.combinedClickable(
+                            onClick = {},
+                            onLongClick = { rotationMenuOpen = true },
+                        ),
+                    ) {
                         Text(
                             player?.fullName ?: "Unknown player",
                             fontSize = 17.sp, fontWeight = FontWeight.ExtraBold,
@@ -429,6 +439,20 @@ private fun NowBattingCard(
                             Spacer(Modifier.width(8.dp))
                             SexDot(Sex.FEMALE)
                         }
+                    }
+                    DropdownMenu(expanded = rotationMenuOpen, onDismissRequest = { rotationMenuOpen = false }) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    "Remove ${player?.firstName ?: "player"} from rotation (no-show)",
+                                    color = MaterialTheme.colorScheme.error,
+                                )
+                            },
+                            onClick = {
+                                rotationMenuOpen = false
+                                onRemoveFromRotation(slot.playerId)
+                            },
+                        )
                     }
                     Spacer(Modifier.height(10.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
