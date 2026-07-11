@@ -75,6 +75,8 @@ data class DefenseUiState(
     val grid: Map<InningParity, Map<String, Player>> = emptyMap(),
     val sittingOdd: List<Player> = emptyList(),
     val sittingEven: List<Player> = emptyList(),
+    /** Available players with no position in either column — everyone should get a spot. */
+    val unassigned: List<Player> = emptyList(),
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -104,6 +106,7 @@ class DefenseViewModel(app: SoftballApp, private val gameId: Long) : ViewModel()
             val assigned = grid[parity]?.values?.map { it.id }?.toSet() ?: emptySet()
             return pool.filter { it.id !in assigned }
         }
+        val assignedAnywhere = grid.values.flatMap { it.values }.map { it.id }.toSet()
         DefenseUiState(
             pool = pool,
             tentativeIds = pool.filter { statusByPlayer[it.id] != AvailabilityStatus.IN }
@@ -111,6 +114,7 @@ class DefenseViewModel(app: SoftballApp, private val gameId: Long) : ViewModel()
             grid = grid,
             sittingOdd = sitting(InningParity.ODD),
             sittingEven = sitting(InningParity.EVEN),
+            unassigned = pool.filter { it.id !in assignedAnywhere },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DefenseUiState())
 
@@ -172,6 +176,7 @@ fun DefenseTab(gameId: Long) {
                 PlayerChip(
                     player = player,
                     tentative = player.id in ui.tentativeIds,
+                    needsPosition = ui.unassigned.any { it.id == player.id },
                 )
             }
         }
@@ -221,6 +226,9 @@ fun DefenseTab(gameId: Long) {
         }
 
         Spacer(Modifier.height(12.dp))
+        CoverageBanner(unassigned = ui.unassigned, poolSize = ui.pool.size)
+
+        Spacer(Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = vm::copyOddToEven, enabled = oddFilled > 0) {
                 Text("Copy Odd → Even", fontWeight = FontWeight.Bold)
@@ -248,6 +256,29 @@ private fun HeaderCell(text: String, modifier: Modifier = Modifier) {
     )
 }
 
+/** Tracks that every available player holds at least one position (either column). */
+@Composable
+private fun CoverageBanner(unassigned: List<Player>, poolSize: Int) {
+    if (poolSize == 0) return
+    val allCovered = unassigned.isEmpty()
+    Surface(
+        shape = RoundedCornerShape(10.dp),
+        color = if (allCovered) MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.errorContainer,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text(
+            if (allCovered) "✓  Everyone available has a position"
+            else "●  No position yet: ${unassigned.joinToString(", ") { it.firstName }}",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = if (allCovered) MaterialTheme.colorScheme.onPrimaryContainer
+            else MaterialTheme.colorScheme.onErrorContainer,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
+        )
+    }
+}
+
 @Composable
 private fun SittingLine(label: String, players: List<Player>) {
     Text(
@@ -257,9 +288,17 @@ private fun SittingLine(label: String, players: List<Player>) {
     )
 }
 
-/** A draggable player chip; the drag payload is the player id as plain text. */
+/**
+ * A draggable player chip; the drag payload is the player id as plain text.
+ * [needsPosition] marks pool chips of players not yet assigned anywhere.
+ */
 @Composable
-private fun PlayerChip(player: Player, tentative: Boolean, compact: Boolean = false) {
+private fun PlayerChip(
+    player: Player,
+    tentative: Boolean,
+    compact: Boolean = false,
+    needsPosition: Boolean = false,
+) {
     Surface(
         shape = RoundedCornerShape(13.dp),
         color = MaterialTheme.colorScheme.surface,
@@ -275,6 +314,15 @@ private fun PlayerChip(player: Player, tentative: Boolean, compact: Boolean = fa
             Modifier.padding(horizontal = if (compact) 8.dp else 10.dp, vertical = if (compact) 4.dp else 7.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            if (needsPosition) {
+                Box(
+                    Modifier
+                        .width(7.dp)
+                        .height(7.dp)
+                        .background(MaterialTheme.colorScheme.error, RoundedCornerShape(50)),
+                )
+                Spacer(Modifier.width(6.dp))
+            }
             Text(
                 if (compact) player.firstName else player.fullName,
                 fontSize = if (compact) 12.sp else 13.sp,
