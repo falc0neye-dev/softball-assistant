@@ -178,6 +178,48 @@ interface PlateAppearanceDao {
 }
 
 @Dao
+interface DefenseDao {
+    @Query("SELECT * FROM defense_assignments WHERE gameId = :gameId")
+    fun observeForGame(gameId: Long): Flow<List<DefenseAssignment>>
+
+    @Query("SELECT * FROM defense_assignments WHERE gameId = :gameId")
+    suspend fun forGame(gameId: Long): List<DefenseAssignment>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(assignment: DefenseAssignment)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(assignments: List<DefenseAssignment>)
+
+    @Query("DELETE FROM defense_assignments WHERE gameId = :gameId AND parity = :parity AND position = :position")
+    suspend fun clearCell(gameId: Long, parity: InningParity, position: String)
+
+    @Query("DELETE FROM defense_assignments WHERE gameId = :gameId AND parity = :parity AND playerId = :playerId")
+    suspend fun clearPlayerInParity(gameId: Long, parity: InningParity, playerId: Long)
+
+    @Query("DELETE FROM defense_assignments WHERE gameId = :gameId AND parity = :parity")
+    suspend fun clearParity(gameId: Long, parity: InningParity)
+
+    /** Move-on-reassign: a player occupies exactly one position per parity. */
+    @Transaction
+    suspend fun assign(assignment: DefenseAssignment) {
+        clearPlayerInParity(assignment.gameId, assignment.parity, assignment.playerId)
+        upsert(assignment)
+    }
+
+    /** Duplicate the odd-inning arrangement onto the even innings. */
+    @Transaction
+    suspend fun copyParity(gameId: Long, from: InningParity, to: InningParity) {
+        val source = forGame(gameId).filter { it.parity == from }
+        clearParity(gameId, to)
+        upsertAll(source.map { it.copy(parity = to) })
+    }
+
+    @Query("SELECT * FROM defense_assignments")
+    suspend fun all(): List<DefenseAssignment>
+}
+
+@Dao
 interface OpponentInningDao {
     @Query("SELECT * FROM opponent_innings WHERE gameId = :gameId ORDER BY inning")
     fun observeForGame(gameId: Long): Flow<List<OpponentInning>>

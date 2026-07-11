@@ -208,6 +208,45 @@ data class PlateAppearance(
     val note: String? = null,
 )
 
+/** Odd innings vs. even innings — the two columns of the defense grid. */
+enum class InningParity { ODD, EVEN }
+
+/** The ten defensive positions, in scorecard order. */
+val DEFENSE_POSITIONS = listOf("P", "C", "1B", "2B", "3B", "SS", "LF", "LC", "RC", "RF")
+
+/**
+ * One cell of a game's defense grid: who plays [position] during [parity] innings.
+ * A player may appear in both parities (different position each half), but the PK
+ * guarantees at most one player per position per parity; the "one position per player
+ * per parity" rule is enforced at write time in the ViewModel.
+ */
+@Serializable
+@Entity(
+    tableName = "defense_assignments",
+    primaryKeys = ["gameId", "parity", "position"],
+    foreignKeys = [
+        ForeignKey(
+            entity = Game::class,
+            parentColumns = ["id"],
+            childColumns = ["gameId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+        ForeignKey(
+            entity = Player::class,
+            parentColumns = ["id"],
+            childColumns = ["playerId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("playerId"), Index("gameId")],
+)
+data class DefenseAssignment(
+    val gameId: Long,
+    val parity: InningParity,
+    val position: String,
+    val playerId: Long,
+)
+
 /** Opponent runs per inning — simple +/- entry, we don't score their at-bats (spec §6.6). */
 @Serializable
 @Entity(

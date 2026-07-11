@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.room.withTransaction
 import com.keithfalcon.softball.data.AppDatabase
 import com.keithfalcon.softball.data.Availability
+import com.keithfalcon.softball.data.DefenseAssignment
 import com.keithfalcon.softball.data.Game
 import com.keithfalcon.softball.data.Lineup
 import com.keithfalcon.softball.data.LineupEntry
@@ -33,6 +34,8 @@ data class BackupData(
     val lineupEntries: List<LineupEntry> = emptyList(),
     val plateAppearances: List<PlateAppearance> = emptyList(),
     val opponentInnings: List<OpponentInning> = emptyList(),
+    // Added in app v1.2; defaults keep older backup files importable.
+    val defenseAssignments: List<DefenseAssignment> = emptyList(),
 ) {
     companion object {
         const val SCHEMA_VERSION = 1
@@ -59,6 +62,7 @@ class BackupManager(private val context: Context, private val db: AppDatabase) {
                 lineupEntries = db.lineupDao().allEntries(),
                 plateAppearances = db.plateAppearanceDao().all(),
                 opponentInnings = db.opponentInningDao().all(),
+                defenseAssignments = db.defenseDao().all(),
             )
             context.contentResolver.openOutputStream(uri, "wt")?.use { out ->
                 out.write(json.encodeToString(BackupData.serializer(), data).toByteArray())
@@ -86,6 +90,7 @@ class BackupManager(private val context: Context, private val db: AppDatabase) {
                 db.backupDao().insertLineupEntries(data.lineupEntries)
                 db.backupDao().insertPlateAppearances(data.plateAppearances)
                 db.backupDao().insertOpponentInnings(data.opponentInnings)
+                db.backupDao().insertDefenseAssignments(data.defenseAssignments)
             }
             data
         }
