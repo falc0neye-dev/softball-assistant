@@ -10,6 +10,7 @@ import androidx.room.Query
 interface BackupDao {
 
     suspend fun clearAll() {
+        clearDefenseAssignments()
         clearPlateAppearances()
         clearLineupEntries()
         clearLineups()
@@ -20,6 +21,7 @@ interface BackupDao {
         clearTeams()
     }
 
+    @Query("DELETE FROM defense_assignments") suspend fun clearDefenseAssignments()
     @Query("DELETE FROM plate_appearances") suspend fun clearPlateAppearances()
     @Query("DELETE FROM lineup_entries") suspend fun clearLineupEntries()
     @Query("DELETE FROM lineups") suspend fun clearLineups()
@@ -37,4 +39,5 @@ interface BackupDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertLineupEntries(items: List<LineupEntry>)
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertPlateAppearances(items: List<PlateAppearance>)
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertOpponentInnings(items: List<OpponentInning>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertDefenseAssignments(items: List<DefenseAssignment>)
 }

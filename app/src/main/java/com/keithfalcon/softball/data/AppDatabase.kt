@@ -1,6 +1,7 @@
 package com.keithfalcon.softball.data
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -15,9 +16,11 @@ import androidx.room.RoomDatabase
         LineupEntry::class,
         PlateAppearance::class,
         OpponentInning::class,
+        DefenseAssignment::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun teamDao(): TeamDao
@@ -27,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun lineupDao(): LineupDao
     abstract fun plateAppearanceDao(): PlateAppearanceDao
     abstract fun opponentInningDao(): OpponentInningDao
+    abstract fun defenseDao(): DefenseDao
     abstract fun backupDao(): BackupDao
 
     companion object {

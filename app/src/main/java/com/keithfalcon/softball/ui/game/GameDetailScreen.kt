@@ -58,7 +58,7 @@ fun GameDetailScreen(gameId: Long, onBack: () -> Unit) {
 
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         // Green app bar (hidden on the scorecard tab, which brings its own score header)
-        if (tab != 2) {
+        if (tab != 3) {
             Surface(color = FieldGreen) {
                 Column(
                     Modifier
@@ -113,7 +113,7 @@ fun GameDetailScreen(gameId: Long, onBack: () -> Unit) {
         // Tabs (clay active indicator per mockups)
         Surface(color = MaterialTheme.colorScheme.surface, shadowElevation = 1.dp) {
             Row(Modifier.fillMaxWidth()) {
-                listOf("Availability", "Lineup", "Scorecard").forEachIndexed { i, label ->
+                listOf("Availability", "Lineup", "Defense", "Scorecard").forEachIndexed { i, label ->
                     Column(
                         Modifier
                             .weight(1f)
@@ -145,8 +145,9 @@ fun GameDetailScreen(gameId: Long, onBack: () -> Unit) {
 
         when (tab) {
             0 -> AvailabilityTab(gameId)
-            1 -> LineupTab(gameId, onStartGame = { tab = 2 })
-            2 -> ScorecardTab(gameId)
+            1 -> LineupTab(gameId, onStartGame = { tab = 3 })
+            2 -> DefenseTab(gameId)
+            3 -> ScorecardTab(gameId)
         }
     }
 }
