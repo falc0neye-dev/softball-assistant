@@ -15,6 +15,7 @@ object StatsEngine {
         val hits: Int,
         val walks: Int,
         val runs: Int,
+        val totalBases: Int,
     ) {
         val avg: Double get() = if (atBats == 0) 0.0 else hits.toDouble() / atBats
         val obp: Double
@@ -23,11 +24,20 @@ object StatsEngine {
                 if (denominator == 0) return 0.0
                 return (hits + walks + 0.0) / denominator
             }
+        val slg: Double get() = if (atBats == 0) 0.0 else totalBases.toDouble() / atBats
+        val ops: Double get() = obp + slg
     }
 
     private val hitOutcomes = setOf(Outcome.SINGLE, Outcome.DOUBLE, Outcome.TRIPLE, Outcome.HOME_RUN)
     private val walkOutcomes = setOf(Outcome.WALK, Outcome.HIT_BY_PITCH)
     private val nonAtBatOutcomes = walkOutcomes + Outcome.SAC_FLY
+
+    private val basesByOutcome = mapOf(
+        Outcome.SINGLE to 1,
+        Outcome.DOUBLE to 2,
+        Outcome.TRIPLE to 3,
+        Outcome.HOME_RUN to 4,
+    )
 
     fun compute(pas: List<PlateAppearance>): Map<Long, PlayerStats> =
         pas.filter { it.playerId != null && it.outcome != Outcome.AUTO_OUT && it.outcome != Outcome.MANUAL_OUT }
@@ -41,6 +51,7 @@ object StatsEngine {
                     hits = rows.count { it.outcome in hitOutcomes },
                     walks = rows.count { it.outcome in walkOutcomes },
                     runs = rows.count { it.runnerResult == RunnerResult.SCORED },
+                    totalBases = rows.sumOf { basesByOutcome[it.outcome] ?: 0 },
                 )
             }
 

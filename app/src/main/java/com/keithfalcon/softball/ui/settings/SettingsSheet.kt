@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -27,7 +29,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,6 +43,8 @@ import com.keithfalcon.softball.data.Player
 import com.keithfalcon.softball.data.backup.BackupManager
 import com.keithfalcon.softball.logic.StatsEngine
 import com.keithfalcon.softball.ui.common.softballViewModel
+import com.keithfalcon.softball.ui.theme.AmberChip
+import com.keithfalcon.softball.ui.theme.AmberDeep
 import com.keithfalcon.softball.ui.theme.MonoDigits
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -60,7 +66,7 @@ class SettingsViewModel(private val app: SoftballApp) : ViewModel() {
     ) { players, pas ->
         val stats = StatsEngine.compute(pas)
         players.mapNotNull { p -> stats[p.id]?.let { StatRow(p, it) } }
-            .sortedByDescending { it.stats.avg }
+            .sortedByDescending { it.stats.ops }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun export(uri: Uri, onDone: (Result<Unit>) -> Unit) {
@@ -170,36 +176,60 @@ private fun StatsSheet(onDismiss: () -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
-                Row(Modifier.fillMaxWidth()) {
+                Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
                     Text("PLAYER", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
-                    listOf("GP", "AB", "H", "BB", "R", "AVG").forEach {
+                    listOf("GP", "AB", "H", "R", "AVG", "OPS").forEach {
                         Text(it, style = MonoDigits.copy(fontSize = 10.sp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.width(if (it == "AVG") 44.dp else 30.dp))
+                            modifier = Modifier.width(if (it == "AVG" || it == "OPS") 46.dp else 28.dp))
                     }
                 }
                 Spacer(Modifier.height(6.dp))
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                // Sorted by OPS — the top row is the season leader and gets the gold treatment.
+                val leaderId = rows.firstOrNull()?.takeIf { it.stats.ops > 0 }?.player?.id
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     items(rows.size, key = { rows[it].player.id }) { i ->
                         val row = rows[i]
-                        Row(Modifier.fillMaxWidth()) {
-                            Text(
-                                row.player.fullName,
-                                fontSize = 13.sp, fontWeight = FontWeight.Bold,
-                                modifier = Modifier.weight(1f),
-                            )
-                            listOf(
-                                "${row.stats.games}", "${row.stats.atBats}", "${row.stats.hits}",
-                                "${row.stats.walks}", "${row.stats.runs}",
-                            ).forEach {
-                                Text(it, style = MonoDigits, modifier = Modifier.width(30.dp))
+                        val isLeader = row.player.id == leaderId
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (isLeader) AmberChip else Color.Transparent,
+                        ) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    (if (isLeader) "★ " else "") + row.player.fullName,
+                                    fontSize = 13.sp,
+                                    fontWeight = if (isLeader) FontWeight.ExtraBold else FontWeight.Bold,
+                                    color = if (isLeader) AmberDeep else MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f),
+                                )
+                                listOf(
+                                    "${row.stats.games}", "${row.stats.atBats}",
+                                    "${row.stats.hits}", "${row.stats.runs}",
+                                ).forEach {
+                                    Text(
+                                        it, style = MonoDigits,
+                                        color = if (isLeader) AmberDeep else MaterialTheme.colorScheme.onSurface,
+                                        modifier = Modifier.width(28.dp),
+                                    )
+                                }
+                                Text(
+                                    StatsEngine.format3(row.stats.avg),
+                                    style = MonoDigits,
+                                    color = if (isLeader) AmberDeep else MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.width(46.dp),
+                                )
+                                Text(
+                                    StatsEngine.format3(row.stats.ops),
+                                    style = MonoDigits, fontWeight = FontWeight.ExtraBold,
+                                    color = if (isLeader) AmberDeep else MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.width(46.dp),
+                                )
                             }
-                            Text(
-                                StatsEngine.format3(row.stats.avg),
-                                style = MonoDigits, fontWeight = FontWeight.Bold,
-                                modifier = Modifier.width(44.dp),
-                            )
                         }
                     }
                 }
